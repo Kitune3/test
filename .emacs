@@ -11,7 +11,7 @@
 	     (setq indent-tabs-mode nil)
 	     (setq tab-width 2)))
 
-; (setq-default indent-tabs-mode nil)
+;(setq-default indent-tabs-mode nil)
 ;(setq-default tab-width 4)
 ;(setq default-tab-width 4)
 ;(setq tab-stop-list '(4 8 16 20 24 28 32 36 40))
@@ -27,47 +27,7 @@
 (global-font-lock-mode 1)
 ;; not divided
 (setq inhibit-startup-message t)
-;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
-(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
-(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
-(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
-;; set python mode
-(add-to-list 'load-path "~/.emacs.d/")
-(setq py-install-directory "~/.emacs.d/")
-(require 'python-mode)
-
-;;; make Groovy mode electric by default.
-(add-hook 'groovy-mode-hook
-          '(lambda ()
-             (require 'groovy-electric)
-             (groovy-electric-mode)))
-
-;; gtags
-(autoload 'gtags-mode "gtags" "" t)
-(setq gtags-mode-hook
-      '(lambda ()
-         (local-set-key "\C-xt" 'gtags-find-tag)
-         (local-set-key "\M-r" 'gtags-find-rtag)
-         (local-set-key "\M-s" 'gtags-find-symbol)
-         (local-set-key "\C-cp" 'gtags-pop-stack)))
-(add-hook 'c-mode-common-hook
-          '(lambda()
-             (gtags-mode 1)
-             (gtags-make-complete-list)))
-
-;; auto-complete
-(add-to-list 'load-path "/home/takuya/.emacs.d/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/takuya/.emacs.d/ac-dict")
-(ac-config-default)
-(ac-set-trigger-key "TAB")
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -81,3 +41,28 @@
 
 ;; For tilda
 (setq make-backup-files nil)
+
+;; evernote-mode
+
+(add-to-list 'load-path "~/.emacs.d")
+(require 'evernote-mode)
+(setq evernote-username "<your evernote user name>") ; optional: you can use this username as default.
+(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; optional
+(global-set-key "\C-cec" 'evernote-create-note)
+(global-set-key "\C-ceo" 'evernote-open-note)
+(global-set-key "\C-ces" 'evernote-search-notes)
+(global-set-key "\C-ceS" 'evernote-do-saved-search)
+(global-set-key "\C-cew" 'evernote-write-note)
+(global-set-key "\C-cep" 'evernote-post-region)
+(global-set-key "\C-ceb" 'evernote-browser)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evernote-developer-token "S=s20:U=24a6a2:E=14fee2b5789:C=148967a2b70:P=1cd:A=en-devtoken:V=2:H=6c50cd531f3489b4c6821dfe6790a5e8")
+ '(evernote-username "kitune3"))
+
+
+;; tramp
+(setq tramp-default-method "ssh")
