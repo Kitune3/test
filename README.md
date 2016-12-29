@@ -1,4 +1,5 @@
 # setting for emacs
+add comment for sample
 ### for gtags
 ここをみるよろし
 http://qiita.com/yoshizow/items/9cc0236ac0249e0638ff
